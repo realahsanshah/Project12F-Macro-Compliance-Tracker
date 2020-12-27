@@ -67,8 +67,9 @@ handler.post(async(req:any,res:any)=>{
 
     data.date=new Date(data.date);
 
-    let doc= await req.db.collections("daily").updateOne({date:new Date(data.date)},{$set:data},{upsert:true});
-
+    let doc= await req.db.collection("daily").updateOne({date:new Date(data.date)},{$set:data},{upsert:true});
+    
+    console.log("doc",doc);
 
     res.json({message:"Data added"});
 

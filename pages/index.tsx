@@ -6,40 +6,13 @@ import fetch from 'isomorphic-unfetch'
 import dayjs from 'dayjs';
 
 
-// let data = {
-//   calories: {
-//     label: "Calories",
-//     total: 1840,
-//     target: 1840,
-//     variant: 15
-//   },
-//   carbs: {
-//     label: "Carbs",
-//     total: 190,
-//     target: 160,
-//     variant: 15
-//   },
-//   fat: {
-//     label: "Fat",
-//     total: 55,
-//     target: 60,
-//     variant: 10
-//   },
-//   protein: {
-//     label: "Protein",
-//     total: 120,
-//     target: 165,
-//     variant: 10
-//   }
-// }
-
-const baseUrl=process.env.NODE_ENV==="development"?"http://localhost:3000":"HHH"
+const baseUrl = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "HHH"
 
 export interface HomeProps {
-  data:any
+  data: any
 }
 
-const Home: React.SFC<HomeProps> = ({data}) => {
+const Home: React.SFC<HomeProps> = ({ data }) => {
 
   const [results, setResults] = React.useState(data);
 
@@ -55,22 +28,29 @@ const Home: React.SFC<HomeProps> = ({data}) => {
     setResults(data);
   }
 
-  const getDataForPreviousDay=async()=>{
-    let currentDate=dayjs(results.date);
-    let newDate=currentDate.subtract(1,'day').format('YYYY-MM-DDTHH:mm:ss');
-    console.log("date",newDate);
-    const res=await fetch(`${baseUrl}/api/daily?date=${newDate}`);
-    const json=await res.json();
+  const updateMacro = async () => {
+    const res = await fetch(`${baseUrl}/api/daily`, {
+      method: "post",
+      body: JSON.stringify(results),
+    });
+  }
+
+  const getDataForPreviousDay = async () => {
+    let currentDate = dayjs(results.date);
+    let newDate = currentDate.subtract(1, 'day').format('YYYY-MM-DDTHH:mm:ss');
+    console.log("date", newDate);
+    const res = await fetch(`${baseUrl}/api/daily?date=${newDate}`);
+    const json = await res.json();
 
     setResults(json);
   }
 
-  const getDataForNextDay=async()=>{
-    let currentDate=dayjs(results.date);
-    let newDate=currentDate.add(1,'day').format('YYYY-MM-DDTHH:mm:ss');
-    console.log("date",newDate);
-    const res=await fetch(`${baseUrl}/api/daily?date=${newDate}`);
-    const json=await res.json();
+  const getDataForNextDay = async () => {
+    let currentDate = dayjs(results.date);
+    let newDate = currentDate.add(1, 'day').format('YYYY-MM-DDTHH:mm:ss');
+    console.log("date", newDate);
+    const res = await fetch(`${baseUrl}/api/daily?date=${newDate}`);
+    const json = await res.json();
 
     setResults(json);
   }
@@ -115,7 +95,10 @@ const Home: React.SFC<HomeProps> = ({data}) => {
 
           <div className="flex text-center">
             <div className="w-full m-4">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={updateMacro}
+              >
                 Save
               </button>
             </div>
@@ -129,13 +112,13 @@ const Home: React.SFC<HomeProps> = ({data}) => {
   );
 }
 
-export const getStaticProps=async(context)=>{
-  
-  const res=await fetch(`${baseUrl}/api/daily`);
-  const json=await res.json();
+export const getStaticProps = async (context) => {
+
+  const res = await fetch(`${baseUrl}/api/daily`);
+  const json = await res.json();
   return {
-    props:{
-      data:json,
+    props: {
+      data: json,
     }
   }
 }
