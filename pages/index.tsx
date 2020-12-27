@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import Result from '../components/result'
+import Result from '../components/Result'
 import MCT from '../components/MCTForm';
 
 let data = {

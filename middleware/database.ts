@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const client=new MongoClient(`{${process.env.MONGODB_CONNECTION}}`,{
+
+const client=new MongoClient(`${process.env.MONGODB_CONNECTION}`,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
 });
