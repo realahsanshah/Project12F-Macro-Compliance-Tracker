@@ -3,6 +3,8 @@ import Head from 'next/head';
 import Result from '../components/Result'
 import MCT from '../components/MCTForm';
 import fetch from 'isomorphic-unfetch'
+import dayjs from 'dayjs';
+
 
 // let data = {
 //   calories: {
@@ -53,6 +55,26 @@ const Home: React.SFC<HomeProps> = ({data}) => {
     setResults(data);
   }
 
+  const getDataForPreviousDay=async()=>{
+    let currentDate=dayjs(results.date);
+    let newDate=currentDate.subtract(1,'day').format('YYYY-MM-DDTHH:mm:ss');
+    console.log("date",newDate);
+    const res=await fetch(`${baseUrl}/api/daily?date=${newDate}`);
+    const json=await res.json();
+
+    setResults(json);
+  }
+
+  const getDataForNextDay=async()=>{
+    let currentDate=dayjs(results.date);
+    let newDate=currentDate.add(1,'day').format('YYYY-MM-DDTHH:mm:ss');
+    console.log("date",newDate);
+    const res=await fetch(`${baseUrl}/api/daily?date=${newDate}`);
+    const json=await res.json();
+
+    setResults(json);
+  }
+
   return (
     <div>
       <Head>
@@ -71,9 +93,9 @@ const Home: React.SFC<HomeProps> = ({data}) => {
           </div>
 
           <div className="flex text-center">
-            <div className="w-1/3 bg-gray-200 p-4">Previous Day</div>
-            <div className="w-1/3 p-4">Today</div>
-            <div className="w-1/3 bg-gray-200 p-4">Next Day</div>
+            <div className="w-1/3 bg-gray-200 p-4"><button onClick={getDataForPreviousDay}>Previous Day</button></div>
+            <div className="w-1/3 p-4">{dayjs(results.date).format('DD-MMM-YYYY')}</div>
+            <div className="w-1/3 bg-gray-200 p-4"><button onClick={getDataForNextDay}>Next Day</button></div>
           </div>
 
           <div className="flex mb-4 text-center">
