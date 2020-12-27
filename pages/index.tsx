@@ -2,39 +2,42 @@ import React from 'react';
 import Head from 'next/head';
 import Result from '../components/Result'
 import MCT from '../components/MCTForm';
+import fetch from 'isomorphic-unfetch'
 
-let data = {
-  calories: {
-    label: "Calories",
-    total: 1840,
-    target: 1840,
-    variant: 15
-  },
-  carbs: {
-    label: "Carbs",
-    total: 190,
-    target: 160,
-    variant: 15
-  },
-  fat: {
-    label: "Fat",
-    total: 55,
-    target: 60,
-    variant: 10
-  },
-  protein: {
-    label: "Protein",
-    total: 120,
-    target: 165,
-    variant: 10
-  }
-}
+// let data = {
+//   calories: {
+//     label: "Calories",
+//     total: 1840,
+//     target: 1840,
+//     variant: 15
+//   },
+//   carbs: {
+//     label: "Carbs",
+//     total: 190,
+//     target: 160,
+//     variant: 15
+//   },
+//   fat: {
+//     label: "Fat",
+//     total: 55,
+//     target: 60,
+//     variant: 10
+//   },
+//   protein: {
+//     label: "Protein",
+//     total: 120,
+//     target: 165,
+//     variant: 10
+//   }
+// }
+
+const baseUrl=process.env.NODE_ENV==="development"?"http://localhost:3000":"HHH"
 
 export interface HomeProps {
-
+  data:any
 }
 
-const Home: React.SFC<HomeProps> = () => {
+const Home: React.SFC<HomeProps> = ({data}) => {
 
   const [results, setResults] = React.useState(data);
 
@@ -102,6 +105,17 @@ const Home: React.SFC<HomeProps> = () => {
 
     </div>
   );
+}
+
+export const getStaticProps=async(context)=>{
+  
+  const res=await fetch(`${baseUrl}/api/daily`);
+  const json=await res.json();
+  return {
+    props:{
+      data:json,
+    }
+  }
 }
 
 export default Home;
