@@ -29,7 +29,7 @@ const Home: React.SFC<HomeProps> = ({ data }) => {
   }
 
   const updateMacro = async () => {
-    const res = await fetch(`${baseUrl}/api/daily`, {
+    const res = await fetch(`http://localhost:3000/api/daily`, {
       method: "post",
       body: JSON.stringify(results),
     });
@@ -39,7 +39,7 @@ const Home: React.SFC<HomeProps> = ({ data }) => {
     let currentDate = dayjs(results.date);
     let newDate = currentDate.subtract(1, 'day').format('YYYY-MM-DDTHH:mm:ss');
     console.log("date", newDate);
-    const res = await fetch(`${baseUrl}/api/daily?date=${newDate}`);
+    const res = await fetch(`http://localhost:3000/api/daily?date=${newDate}`);
     const json = await res.json();
 
     setResults(json);
@@ -49,7 +49,7 @@ const Home: React.SFC<HomeProps> = ({ data }) => {
     let currentDate = dayjs(results.date);
     let newDate = currentDate.add(1, 'day').format('YYYY-MM-DDTHH:mm:ss');
     console.log("date", newDate);
-    const res = await fetch(`${baseUrl}/api/daily?date=${newDate}`);
+    const res = await fetch(`http://localhost:3000/api/daily?date=${newDate}`);
     const json = await res.json();
 
     setResults(json);
@@ -114,7 +114,7 @@ const Home: React.SFC<HomeProps> = ({ data }) => {
 
 export const getStaticProps = async (context) => {
 
-  const res = await fetch(`${baseUrl}/api/daily`);
+  const res = await fetch(`http://localhost:3000/api/daily`);
   const json = await res.json();
   return {
     props: {
