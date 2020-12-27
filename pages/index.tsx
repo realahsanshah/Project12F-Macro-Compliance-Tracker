@@ -1,12 +1,43 @@
 import React from 'react';
 import Head from 'next/head';
 import Nav from '../components/nav';
+import Result from '../components/result';
+
+let data = {
+  calories: {
+    label: "Calories",
+    total: 1840,
+    target: 1840,
+    variant: 15
+  },
+  carbs: {
+    label: "Carbs",
+    total: 190,
+    target: 160,
+    variant: 15
+  },
+  fat: {
+    label: "Fat",
+    total: 55,
+    target: 60,
+    variant: 10
+  },
+  protein: {
+    label: "Protein",
+    total: 120,
+    target: 165,
+    variant: 10
+  }
+}
 
 export interface HomeProps {
 
 }
 
 const Home: React.SFC<HomeProps> = () => {
+
+  const [results, setResults] = React.useState(data);
+
   return (
     <div>
       <Head>
@@ -23,53 +54,20 @@ const Home: React.SFC<HomeProps> = () => {
               <h1 className="text-4xl">Macro Compliacne Tracker</h1>
             </div>
           </div>
+          
+          <div className="flex text-center">
+            <div className="w-1/3 bg-gray-200 p-4">Previous Day</div>
+            <div className="w-1/3 p-4">Today</div>
+            <div className="w-1/3 bg-gray-200 p-4">Next Day</div>
+          </div>
 
           <div className="flex mb-4 text-center">
 
-            <div className="w-1/4 p-4 bg-green-500 text-white">
-              <h2 className="text-3xl font-bold">1850
-                <div className="flex text-sm p-4">
-                  <div className="w-1/3">1700</div>
-                  <div className="w-1/3 font-bold">1850</div>
-                  <div className="w-1/3">22000</div>
-                </div>
-              </h2>
-              <h3 className="text-xl">Calories</h3>
-            </div>
-
-            <div className="w-1/4 p-4 bg-red-500 text-white">
-              <h2 className="text-3xl font-bold">195
-                <div className="flex text-sm p-4">
-                  <div className="w-1/3">150</div>
-                  <div className="w-1/3 font-bold">160</div>
-                  <div className="w-1/3">170</div>
-                </div>
-              </h2>
-              <h3 className="text-xl">Carbs</h3>
-            </div>
-
-            <div className="w-1/4 p-4 bg-green-500 text-white">
-              <h2 className="text-3xl font-bold">55
-            <div className="flex text-sm p-4">
-                  <div className="w-1/3">50</div>
-                  <div className="w-1/3 font-bold">60</div>
-                  <div className="w-1/3">70</div>
-                </div>
-              </h2>
-              <h3 className="text-xl">Fat</h3>
-            </div>
-
-            <div className="w-1/4 p-4 bg-blue-500 text-white">
-              <h2 className="text-3xl font-bold">120
-                <div className="flex text-sm p-4">
-                  <div className="w-1/3">145</div>
-                  <div className="w-1/3 font-bold">160</div>
-                  <div className="w-1/3">175</div>
-                </div>
-              </h2>
-              <h3 className="text-xl">Protien</h3>
-            </div>
-
+            <Result results={results.calories} />
+            <Result results={results.carbs} />
+            <Result results={results.fat} />
+            <Result results={results.protein} />
+          
           </div>
 
           <div className="flex">
@@ -77,117 +75,117 @@ const Home: React.SFC<HomeProps> = () => {
               <h2 className="text-3xl p-4">Results</h2>
               <div className="p-4">
                 <label className="block">Calories</label>
-                <input 
-                  type="number" 
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white" 
-                  />
+                <input
+                  type="number"
+                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
+                />
               </div>
               <div className="p-4">
                 <label className="block">Carbs</label>
-                <input 
-                  type="number" 
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white" 
-                  />
+                <input
+                  type="number"
+                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
+                />
               </div>
               <div className="p-4">
                 <label className="block">Fat</label>
-                <input 
-                  type="number" 
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white" 
-                  />
+                <input
+                  type="number"
+                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
+                />
               </div>
               <div className="p-4">
                 <label className="block">Protein</label>
-                <input 
-                  type="number" 
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white" 
-                  />
+                <input
+                  type="number"
+                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
+                />
               </div>
-              
+
               <div className="p-4">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Save
                 </button>
               </div>
-           
+
             </div>
 
             <div className="w-1/3">
               <h2 className="text-3xl p-4">Target</h2>
               <div className="p-4">
                 <label className="block">Calories</label>
-                <input 
-                  type="number" 
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white" 
-                  />
+                <input
+                  type="number"
+                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
+                />
               </div>
               <div className="p-4">
                 <label className="block">Carbs</label>
-                <input 
-                  type="number" 
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white" 
-                  />
+                <input
+                  type="number"
+                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
+                />
               </div>
               <div className="p-4">
                 <label className="block">Fat</label>
-                <input 
-                  type="number" 
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white" 
-                  />
+                <input
+                  type="number"
+                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
+                />
               </div>
               <div className="p-4">
                 <label className="block">Protein</label>
-                <input 
-                  type="number" 
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white" 
-                  />
+                <input
+                  type="number"
+                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
+                />
               </div>
-              
+
               <div className="p-4">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Save
                 </button>
               </div>
-           
+
             </div>
 
             <div className="w-1/3">
               <h2 className="text-3xl p-4">Variance</h2>
               <div className="p-4">
                 <label className="block">Calories</label>
-                <input 
-                  type="number" 
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white" 
-                  />
+                <input
+                  type="number"
+                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
+                />
               </div>
               <div className="p-4">
                 <label className="block">Carbs</label>
-                <input 
-                  type="number" 
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white" 
-                  />
+                <input
+                  type="number"
+                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
+                />
               </div>
               <div className="p-4">
                 <label className="block">Fat</label>
-                <input 
-                  type="number" 
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white" 
-                  />
+                <input
+                  type="number"
+                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
+                />
               </div>
               <div className="p-4">
                 <label className="block">Protein</label>
-                <input 
-                  type="number" 
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white" 
-                  />
+                <input
+                  type="number"
+                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
+                />
               </div>
-              
+
               <div className="p-4">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Save
                 </button>
               </div>
-           
+
             </div>
 
 
