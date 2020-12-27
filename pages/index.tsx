@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Result from '../components/result'
+import MCT from '../components/MCTForm';
 
 let data = {
   calories: {
@@ -37,6 +38,18 @@ const Home: React.SFC<HomeProps> = () => {
 
   const [results, setResults] = React.useState(data);
 
+  const onChange=(e)=>{
+    const data={...results};
+
+    let name=e.target.name;
+    let resultType=name.split(" ")[0].toLowerCase();
+    let resultMacro=name.split(" ")[1].toLowerCase();
+
+    data[resultMacro][resultType]=e.target.value;
+
+    setResults(data);
+  }
+
   return (
     <div>
       <Head>
@@ -70,122 +83,9 @@ const Home: React.SFC<HomeProps> = () => {
           </div>
 
           <div className="flex">
-            <div className="w-1/3">
-              <h2 className="text-3xl p-4">Results</h2>
-              <div className="p-4">
-                <label className="block">Calories</label>
-                <input
-                  type="number"
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
-                />
-              </div>
-              <div className="p-4">
-                <label className="block">Carbs</label>
-                <input
-                  type="number"
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
-                />
-              </div>
-              <div className="p-4">
-                <label className="block">Fat</label>
-                <input
-                  type="number"
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
-                />
-              </div>
-              <div className="p-4">
-                <label className="block">Protein</label>
-                <input
-                  type="number"
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
-                />
-              </div>
-
-              <div className="p-4">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Save
-                </button>
-              </div>
-
-            </div>
-
-            <div className="w-1/3">
-              <h2 className="text-3xl p-4">Target</h2>
-              <div className="p-4">
-                <label className="block">Calories</label>
-                <input
-                  type="number"
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
-                />
-              </div>
-              <div className="p-4">
-                <label className="block">Carbs</label>
-                <input
-                  type="number"
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
-                />
-              </div>
-              <div className="p-4">
-                <label className="block">Fat</label>
-                <input
-                  type="number"
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
-                />
-              </div>
-              <div className="p-4">
-                <label className="block">Protein</label>
-                <input
-                  type="number"
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
-                />
-              </div>
-
-              <div className="p-4">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Save
-                </button>
-              </div>
-
-            </div>
-
-            <div className="w-1/3">
-              <h2 className="text-3xl p-4">Variance</h2>
-              <div className="p-4">
-                <label className="block">Calories</label>
-                <input
-                  type="number"
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
-                />
-              </div>
-              <div className="p-4">
-                <label className="block">Carbs</label>
-                <input
-                  type="number"
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
-                />
-              </div>
-              <div className="p-4">
-                <label className="block">Fat</label>
-                <input
-                  type="number"
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
-                />
-              </div>
-              <div className="p-4">
-                <label className="block">Protein</label>
-                <input
-                  type="number"
-                  className="bg-gray-200 text-gray-700 border rounded py-3 px-4 mb3 leading-tight focus:outline-none focus:bg-white"
-                />
-              </div>
-
-              <div className="p-4">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Save
-                </button>
-              </div>
-
-            </div>
+            <MCT data={results} item="Total" onChange={onChange} />
+            <MCT data={results} item="Target" onChange={onChange} />
+            <MCT data={results} item="Variant" onChange={onChange} />
 
 
           </div>
