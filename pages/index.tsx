@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Result from '../components/result'
-import MCT from '../components/mctform';
+import MCT from '../components/MCTForm';
 import fetch from 'isomorphic-unfetch'
 import dayjs from 'dayjs';
 
