@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import Nav from '../components/Nav';
 
 
 export interface AboutProps {
@@ -15,7 +14,6 @@ const About: React.SFC<AboutProps> = () => {
                 <link rel="icon" href="/favicon.ico" />
                 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
             </Head>
-            <Nav />
 
             <div className="container mx-auto text-center">
                 <h1 className="text-6xl m-12">Macro Compliacne Tracker</h1>
